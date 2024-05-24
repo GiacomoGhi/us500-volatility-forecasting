@@ -35,7 +35,7 @@ def ohlcDataPreprocessor(inputFilePath: str, outputDirPath: str) -> None:
         max_ohlc_val = max(open_val, high, low, close)
         min_ohlc_val = min(open_val, high, low, close)
         
-        round(((max_ohlc_val - min_ohlc_val) / open_val) * 100, 2)
+        volatility = round(((max_ohlc_val - min_ohlc_val) / open_val) * 100, 2)
         
         # Format the time value without semicolons
         formatted_time = time.replace(':', '')
@@ -66,4 +66,4 @@ def ohlcDataPreprocessor(inputFilePath: str, outputDirPath: str) -> None:
     cp.green(f"Success: Processed data written to {outputDirPath} as train.csv, valid.csv, and test.csv")
 
 # Example usage
-ohlcDataPreprocessor('data/D1-USA500IDXUSD.csv', 'processed-data/D1')
+#ohlcDataPreprocessor('data/D1-USA500IDXUSD.csv', 'processed-data/D1')
