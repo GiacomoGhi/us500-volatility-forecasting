@@ -1,13 +1,14 @@
 import os
 import csv
 import math
+import sys
 from visual_util import ColoredPrint as cp
 
 def ohlcDataPreprocessor(inputFilePath: str, outputDirPath: str) -> None:
     # Check if input file exists
     if not os.path.isfile(inputFilePath):
         cp.red(f"Error: Input file {inputFilePath} does not exist.")
-        return
+        sys.exit(-1)
     
     # Ensure the output directory exists
     if not os.path.isdir(outputDirPath):
@@ -66,4 +67,5 @@ def ohlcDataPreprocessor(inputFilePath: str, outputDirPath: str) -> None:
     cp.green(f"Success: Processed data written to {outputDirPath} as train.csv, val.csv, and test.csv")
 
 # Example usage
-ohlcDataPreprocessor('data/D1-USA500IDXUSD.csv', 'processed-data/D1')
+if __name__ == '__main__':
+    ohlcDataPreprocessor('data/D1-USA500IDXUSD.csv', 'processed-data/D1')

@@ -111,20 +111,20 @@ if __name__ == '__main__':
 
     tr_cdc.show_data()
     
-    # va_cdc = CustomDatasetCsv('./processed-data/D1/val.csv', window_size, debug=True)
+    va_cdc = CustomDatasetCsv('./processed-data/D1/val.csv', window_size, debug=True)
     
-    # for i, data in enumerate(va_cdc):
-    #     if i == 5:
-    #         break
-    #     print(f'Sample {i}\n|_Sequence:\n{data[0]}\n|_Next element:\t{data[1]}')
+    for i, data in enumerate(va_cdc):
+        if i == 5:
+            break
+        print(f'Sample {i}\n|_Sequence:\n{data[0]}\n|_Next element:\t{data[1]}')
 
-    # va_cdc.show_data()
+    va_cdc.show_data()
     
-    # te_cdc = CustomDatasetCsv('./processed-data/D1/test.csv', window_size, debug=True)
+    te_cdc = CustomDatasetCsv('./processed-data/D1/test.csv', window_size, debug=True)
     
-    # for i, data in enumerate(te_cdc):
-    #     if i == 5:
-    #         break
-    #     print(f'Sample {i}\n|_Sequence:\n{data[0]}\n|_Next element:\t{data[1]}')
+    for i, data in enumerate(te_cdc):
+        if i == 5:
+            break
+        print(f'Sample {i}\n|_Sequence:\n{data[0]}\n|_Next element:\t{data[1]}')
 
-    # te_cdc.show_data()
+    te_cdc.show_data()

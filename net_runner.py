@@ -28,6 +28,14 @@ class NetRunner():
         
         # Salvo il file di configurazione.
         self.cfg = cfg_object
+
+        # Dal file di configurazione seleziono il files per il data set e per l'output
+        if (self.cfg.io.time_frame == "D1"): 
+            self.data_files_dirs = self.cfg.io.D1
+        elif (self.cfg.io.time_frame == "H1"):
+            self.data_files_dirs = self.cfg.io.H1
+        else:
+            self.data_files_dirs = self.cfg.io.M15
         
         # Acquisisco la rete, in base al tipo richiesto.
         self.net = self.__get_net()
@@ -36,7 +44,7 @@ class NetRunner():
         self.__load_data()
 
         # Predispone la cartella di output.
-        self.out_root = Path(self.cfg.io.D1.out_folder)
+        self.out_root = Path(self.data_files_dirs.out_folder)
         
         # Il percorso indicato esiste?
         if not self.out_root.exists():
@@ -340,20 +348,20 @@ class NetRunner():
     # Carica i Dataset tramite Dataloader e scopre le classi del dataset.
     def __load_data(self) -> None:
     
-        cp.cyan(f'Analyzing training dataset: {self.cfg.io.D1.training_file}')
-        tr_dataset = CustomDatasetCsv(self.cfg.io.D1.training_file, 
+        cp.cyan(f'Analyzing training dataset: {self.data_files_dirs.training_file}')
+        tr_dataset = CustomDatasetCsv(self.data_files_dirs.training_file, 
                                       self.cfg.hyper_parameters.window_size, 
-                                      debug=self.cfg.io.D1.cutom_dataset_debug)
+                                      debug=self.data_files_dirs.cutom_dataset_debug)
         
-        cp.cyan(f'Analyzing validation dataset: {self.cfg.io.D1.validation_file}')
-        va_dataset = CustomDatasetCsv(self.cfg.io.D1.validation_file, 
+        cp.cyan(f'Analyzing validation dataset: {self.data_files_dirs.validation_file}')
+        va_dataset = CustomDatasetCsv(self.data_files_dirs.validation_file, 
                                       self.cfg.hyper_parameters.window_size, 
-                                      debug=self.cfg.io.D1.cutom_dataset_debug)
+                                      debug=self.data_files_dirs.cutom_dataset_debug)
         
-        cp.cyan(f'Analyzing test dataset: {self.cfg.io.D1.test_file}')
-        te_dataset = CustomDatasetCsv(self.cfg.io.D1.test_file, 
+        cp.cyan(f'Analyzing test dataset: {self.data_files_dirs.test_file}')
+        te_dataset = CustomDatasetCsv(self.data_files_dirs.test_file, 
                                       self.cfg.hyper_parameters.window_size, 
-                                      debug=self.cfg.io.D1.cutom_dataset_debug)
+                                      debug=self.data_files_dirs.cutom_dataset_debug)
 
         # Creo poi il dataloader che prende i dati di addestramento a batch:
         self.tr_loader = torch.utils.data.DataLoader(tr_dataset, 
