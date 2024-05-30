@@ -45,25 +45,25 @@ def ohlcDataPreprocessor(inputFilePath: str, outputDirPath: str) -> None:
     # Determine split indices
     total_rows = len(processed_data)
     train_end = math.ceil(0.6 * total_rows)
-    valid_end = train_end + math.ceil(0.2 * total_rows)
+    val_end = train_end + math.ceil(0.2 * total_rows)
     
     train_data = processed_data[:train_end]
-    valid_data = processed_data[train_end:valid_end]
-    test_data = processed_data[valid_end:]
+    val_data = processed_data[train_end:val_end]
+    test_data = processed_data[val_end:]
 
     # Define file paths
     train_file_path = os.path.join(outputDirPath, 'train.csv')
-    valid_file_path = os.path.join(outputDirPath, 'valid.csv')
+    val_file_path = os.path.join(outputDirPath, 'val.csv')
     test_file_path = os.path.join(outputDirPath, 'test.csv')
 
     # Write the data to the respective files
-    for file_path, data in zip([train_file_path, valid_file_path, test_file_path], [train_data, valid_data, test_data]):
+    for file_path, data in zip([train_file_path, val_file_path, test_file_path], [train_data, val_data, test_data]):
         with open(file_path, mode='w', newline='') as outfile:
             writer = csv.writer(outfile)
             writer.writerow(headers)
             writer.writerows(data)
     
-    cp.green(f"Success: Processed data written to {outputDirPath} as train.csv, valid.csv, and test.csv")
+    cp.green(f"Success: Processed data written to {outputDirPath} as train.csv, val.csv, and test.csv")
 
 # Example usage
 ohlcDataPreprocessor('data/D1-USA500IDXUSD.csv', 'processed-data/D1')
