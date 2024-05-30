@@ -282,9 +282,6 @@ class NetRunner():
 
         # Stop di validazione.
         for _, data in enumerate(loader, 0):
-            
-            # Print sequence content
-            print(f"Sequence content: {data[0]}")  # data[0] should be the sequence tensor
 
             # Le rete entra in modalita' addestramento.
             net.eval()
@@ -297,11 +294,6 @@ class NetRunner():
                 
                 # Esegue le predizioni.
                 outputs = net(sequence)
-
-
-                # Print next_element content and shape
-                print(f"next_element content: {next_element}")  # next_element should be the target value tensor
-                print(f"next_element shape: {next_element.shape}")
 
                 # Calcola la loss.
                 loss = self.criterion(outputs, next_element[0, -1])
