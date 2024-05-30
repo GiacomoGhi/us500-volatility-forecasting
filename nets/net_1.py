@@ -6,7 +6,7 @@ from pytorch_model_summary import summary
 
 class Net(nn.Module):
 
-    def __init__(self, input_size: int = 4, hidden_size: int = 50, num_layers: int = 1, out_size: int = 1) -> None:
+    def __init__(self, input_size: int = 7, hidden_size: int = 50, num_layers: int = 1, out_size: int = 1) -> None:
         
         super(Net, self).__init__()
         
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     
     # Crea l'oggetto che rappresenta la rete.
     # Fornisce le classi.
-    n = Net(input_size=4)
+    n = Net()
     
     # Salva i parametri addestrati della rete.
     torch.save(n.state_dict(), './out/model_state_dict.pth')

@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
+from sklearn.preprocessing import MinMaxScaler
 from torch.utils.data import Dataset
 
 class CustomDatasetCsv(Dataset):
@@ -11,6 +12,7 @@ class CustomDatasetCsv(Dataset):
         self.debug = debug
         self.window_size = window_size
         self.data_path = Path(root)
+        self.scaler = MinMaxScaler(feature_range=(0, 1)) 
 
         if not self.__analyze_file():
             sys.exit(-1)
@@ -80,7 +82,8 @@ class CustomDatasetCsv(Dataset):
             return False
 
     def __load_data_and_labels(self) -> None:
-        self.data = self.df[['Open', 'High', 'Low', 'Close']].to_numpy().astype(np.float32)
+        self.data = self.df.to_numpy().astype(np.float32)
+        self.data = self.scaler.fit_transform(self.data)
 
     def show_data(self, data_start=None, data_end=None):
         data_start = 0 if data_start is None else data_start
@@ -92,12 +95,12 @@ class CustomDatasetCsv(Dataset):
         s = s if (s >= 0 and s <= len(self.df)) else 0
         e = e if (e >= 0 and e <= len(self.df)) else 0
 
-        self.df[['Open', 'High', 'Low', 'Close']][s:e].plot()
+        self.df[['Close']][s:e].plot()
         plt.show()
 
 
 if __name__ == '__main__':
-    window_size = 40
+    window_size = 4
     
     tr_cdc = CustomDatasetCsv('./processed-data/D1/train.csv', window_size, debug=True)
     
@@ -108,20 +111,20 @@ if __name__ == '__main__':
 
     tr_cdc.show_data()
     
-    va_cdc = CustomDatasetCsv('./processed-data/D1/val.csv', window_size, debug=True)
+    # va_cdc = CustomDatasetCsv('./processed-data/D1/val.csv', window_size, debug=True)
     
-    for i, data in enumerate(va_cdc):
-        if i == 5:
-            break
-        print(f'Sample {i}\n|_Sequence:\n{data[0]}\n|_Next element:\t{data[1]}')
+    # for i, data in enumerate(va_cdc):
+    #     if i == 5:
+    #         break
+    #     print(f'Sample {i}\n|_Sequence:\n{data[0]}\n|_Next element:\t{data[1]}')
 
-    va_cdc.show_data()
+    # va_cdc.show_data()
     
-    te_cdc = CustomDatasetCsv('./processed-data/D1/test.csv', window_size, debug=True)
+    # te_cdc = CustomDatasetCsv('./processed-data/D1/test.csv', window_size, debug=True)
     
-    for i, data in enumerate(te_cdc):
-        if i == 5:
-            break
-        print(f'Sample {i}\n|_Sequence:\n{data[0]}\n|_Next element:\t{data[1]}')
+    # for i, data in enumerate(te_cdc):
+    #     if i == 5:
+    #         break
+    #     print(f'Sample {i}\n|_Sequence:\n{data[0]}\n|_Next element:\t{data[1]}')
 
-    te_cdc.show_data()
+    # te_cdc.show_data()
