@@ -6,7 +6,7 @@ from pytorch_model_summary import summary
 
 class Net(nn.Module):
 
-    def __init__(self, input_size: int = 1, hidden_size: int = 50, num_layers: int = 1, out_size: int = 1) -> None:
+    def __init__(self, input_size: int = 4, hidden_size: int = 50, num_layers: int = 1, out_size: int = 1) -> None:
         
         super(Net, self).__init__()
         
@@ -31,17 +31,18 @@ class Net(nn.Module):
         self.linear = nn.Linear(self.hidden_size, 
                                 self.out_size)
         
-    def reset_state(self, sequence: torch.Tensor) -> None:
+    def reset_state(self, batch_size: int) -> None:
         
         # Inizializzo hidden e cell state iniziale: h0 e c0.
         # - Calcolo batch_size dalla len() della sequenza.
-        self.hidden = (torch.zeros( self.num_layers, len(sequence), self.hidden_size),
-                       torch.zeros( self.num_layers, len(sequence), self.hidden_size))
+        self.hidden = (torch.zeros( self.num_layers, batch_size, self.hidden_size),
+                       torch.zeros( self.num_layers, batch_size, self.hidden_size))
 
     def forward(self, sequence : torch.Tensor) -> torch.Tensor:
+        batch_size = sequence.size(0)
         
         # Inizializzo h0 e c0
-        self.reset_state(sequence)
+        self.reset_state(batch_size)
         
         # Calcolo la dimensione da passare alla rete LSTM:
         # - Con batch_first a True, e' attesto (batch_size, sequence_length, input_size)
@@ -59,7 +60,7 @@ if __name__ == '__main__':
     
     # Crea l'oggetto che rappresenta la rete.
     # Fornisce le classi.
-    n = Net()
+    n = Net(input_size=4)
     
     # Salva i parametri addestrati della rete.
     torch.save(n.state_dict(), './out/model_state_dict.pth')
@@ -76,4 +77,4 @@ if __name__ == '__main__':
             print(name, param.data)
 
     # Stampa un recap del modello.
-    print(summary(n, torch.ones(size=[1, 40])))
+    print(summary(n, torch.ones(size=[1, 40, 4])))
