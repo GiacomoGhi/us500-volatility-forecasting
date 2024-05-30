@@ -1,151 +1,186 @@
 {
-    "type" : "object",
-    "required" : [
-        "io", 
-        "parameters", 
-        "hyper_parameters",
-        "lstm_parameters",
-        "train_parameters", 
-        "early_stop_parameters"
-    ],
-    "properties" : {
-        "io" : { 
-            "type" : "object",
-            "required" : [
-                "training_file",
-                "validation_file",
-                "test_file",
-                "out_folder"
-            ],
-            "properties" : {
-                "training_file" : {"type" : "string"},
-                "validation_file" : {"type" : "string"},
-                "test_file" : {"type" : "string"},
-                "out_folder" : {"type" : "string"}
-            }
+  "type": "object",
+  "required": [
+    "io",
+    "parameters",
+    "hyper_parameters",
+    "lstm_parameters",
+    "train_parameters",
+    "early_stop_parameters"
+  ],
+  "properties": {
+    "io": {
+      "type": "object",
+      "required": ["D1", "H1", "M15"],
+      "properties": {
+        "D1": {
+          "type": "object",
+          "required": [
+            "training_file",
+            "validation_file",
+            "test_file",
+            "out_folder",
+            "cutom_dataset_debug"
+          ],
+          "properties": {
+            "training_file": { "type": "string" },
+            "validation_file": { "type": "string" },
+            "test_file": { "type": "string" },
+            "out_folder": { "type": "string" },
+            "cutom_dataset_debug": { "type": "boolean" }
+          }
         },
-        "parameters" : {
-            "type" : "object",
-            "required" : [
-                "train",
-                "test",
-                "show_preview"
-            ],
-            "properties" : {
-                "train" : {"type" : "boolean"},
-                "test" : {"type" : "boolean"},
-                "show_preview" : {"type" : "boolean"}
-            }
+        "H1": {
+          "type": "object",
+          "required": [
+            "training_file",
+            "validation_file",
+            "test_file",
+            "out_folder",
+            "cutom_dataset_debug"
+          ],
+          "properties": {
+            "training_file": { "type": "string" },
+            "validation_file": { "type": "string" },
+            "test_file": { "type": "string" },
+            "out_folder": { "type": "string" },
+            "cutom_dataset_debug": { "type": "boolean" }
+          }
         },
-        "hyper_parameters" : {
-            "type" : "object",
-            "required" : [
-                "batch_size",
-                "window_size",
-                "epochs",
-                "learning_rate",
-                "momentum"
-            ],
-            "properties" : {
-                "batch_size" : {
-                    "type" : "number", 
-                    "minimum" : 1,
-                    "maximum" : 1024
-                },
-                "window_size" : {
-                    "type" : "number", 
-                    "minimum" : 1,
-                    "maximum" : 1024
-                },
-                "epochs" : {
-                    "type" : "number", 
-                    "minimum" : 1,
-                    "maximum" : 10000
-                },
-                "learning_rate" : {
-                    "type" : "number", 
-                    "minimum" : 0.000001,
-                    "maximum" : 100
-                },
-                "momentum" : {
-                    "type" : "number", 
-                    "minimum" : 0,
-                    "maximum" : 100
-                }
-            }
-        },
-        "lstm_parameters": {
-            "type" : "object",
-            "required" : [
-                "hidden_size",
-                "num_layers"
-            ],
-            "properties" : {
-                "hidden_size" : {
-                    "type" : "number", 
-                    "minimum" : 1,
-                    "maximum" : 10000
-                },
-                "num_layers" : {
-                    "type" : "number", 
-                    "minimum" : 1,
-                    "maximum" : 10000
-                }
-            }
-        },
-        "train_parameters" : {
-            "type" : "object",
-            "required" : [
-                "network_type",
-                "step_monitor",
-                "loss_target",
-                "reload_last_model"
-            ],
-            "properties" : {
-                "network_type" : {"type" : "string"},
-                "step_monitor" : {
-                    "type" : "number", 
-                    "minimum" : 0,
-                    "maximum" : 10000
-                },
-                "loss_target" : {
-                    "type" : "number", 
-                    "minimum" : 0,
-                    "maximum" : 10000
-                },
-                "reload_last_model" : {"type" : "boolean"}
-            }
-        },
-        "early_stop_parameters" : {
-            "type" : "object",
-            "required" : [
-                "loss_evaluation_epochs",
-                "start_epoch",
-                "patience",
-                "improvement_rate"
-            ],
-            "properties" : {
-                "loss_evaluation_epochs" : {
-                    "type" : "number", 
-                    "minimum" : 0,
-                    "maximum" : 10000
-                },
-                "start_epoch" : {
-                    "type" : "number", 
-                    "minimum" : 0,
-                    "maximum" : 10000
-                },
-                "patience" : {
-                    "type" : "number", 
-                    "minimum" : 1,
-                    "maximum" : 10000
-                },
-                "improvement_rate" : {
-                    "type" : "number", 
-                    "minimum" : 0,
-                    "maximum" : 100
-                }
-            }
+        "M15": {
+          "type": "object",
+          "required": [
+            "training_file",
+            "validation_file",
+            "test_file",
+            "out_folder",
+            "cutom_dataset_debug"
+          ],
+          "properties": {
+            "training_file": { "type": "string" },
+            "validation_file": { "type": "string" },
+            "test_file": { "type": "string" },
+            "out_folder": { "type": "string" },
+            "cutom_dataset_debug": { "type": "boolean" }
+          }
         }
+      }
+    },
+    "parameters": {
+      "type": "object",
+      "required": ["train", "test", "show_preview"],
+      "properties": {
+        "train": { "type": "boolean" },
+        "test": { "type": "boolean" },
+        "show_preview": { "type": "boolean" }
+      }
+    },
+    "hyper_parameters": {
+      "type": "object",
+      "required": [
+        "batch_size",
+        "window_size",
+        "epochs",
+        "learning_rate",
+        "momentum"
+      ],
+      "properties": {
+        "batch_size": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 1024
+        },
+        "window_size": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 1024
+        },
+        "epochs": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "learning_rate": {
+          "type": "number",
+          "minimum": 0.000001,
+          "maximum": 100
+        },
+        "momentum": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "lstm_parameters": {
+      "type": "object",
+      "required": ["hidden_size", "num_layers"],
+      "properties": {
+        "hidden_size": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "num_layers": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 10000
+        }
+      }
+    },
+    "train_parameters": {
+      "type": "object",
+      "required": [
+        "network_type",
+        "step_monitor",
+        "loss_target",
+        "reload_last_model"
+      ],
+      "properties": {
+        "network_type": { "type": "string" },
+        "step_monitor": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "loss_target": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "reload_last_model": { "type": "boolean" }
+      }
+    },
+    "early_stop_parameters": {
+      "type": "object",
+      "required": [
+        "loss_evaluation_epochs",
+        "start_epoch",
+        "patience",
+        "improvement_rate"
+      ],
+      "properties": {
+        "loss_evaluation_epochs": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "start_epoch": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "patience": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "improvement_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
     }
+  }
 }
