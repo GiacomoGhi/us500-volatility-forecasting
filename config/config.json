@@ -1,6 +1,8 @@
 {
   "io": {
+    "time_frame": "M15",
     "D1": {
+      "non_processed_dataset": "./data/D1-USA500IDXUSD.csv",
       "training_file": "./processed-data/D1/train.csv",
       "validation_file": "./processed-data/D1/val.csv",
       "test_file": "./processed-data/D1/test.csv",
@@ -8,6 +10,7 @@
       "cutom_dataset_debug": true
     },
     "H1": {
+      "non_processed_dataset": "./data/H1-USA500IDXUSD.csv",
       "training_file": "./processed-data/H1/train.csv",
       "validation_file": "./processed-data/H1/val.csv",
       "test_file": "./processed-data/H1/test.csv",
@@ -15,6 +18,7 @@
       "cutom_dataset_debug": true
     },
     "M15": {
+      "non_processed_dataset": "./data/M15-USA500IDXUSD.csv",
       "training_file": "./processed-data/M15/train.csv",
       "validation_file": "./processed-data/M15/val.csv",
       "test_file": "./processed-data/M15/test.csv",

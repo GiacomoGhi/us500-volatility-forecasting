@@ -11,11 +11,16 @@
   "properties": {
     "io": {
       "type": "object",
-      "required": ["D1", "H1", "M15"],
+      "required": ["time_frame", "D1", "H1", "M15"],
       "properties": {
+        "time_frame": {
+          "type": "string",
+          "enum": ["D1", "H1", "M15"]
+        },
         "D1": {
           "type": "object",
           "required": [
+            "non_processed_dataset",
             "training_file",
             "validation_file",
             "test_file",
@@ -23,6 +28,7 @@
             "cutom_dataset_debug"
           ],
           "properties": {
+            "non_processed_dataset": { "type": "string" },
             "training_file": { "type": "string" },
             "validation_file": { "type": "string" },
             "test_file": { "type": "string" },
@@ -33,6 +39,7 @@
         "H1": {
           "type": "object",
           "required": [
+            "non_processed_dataset",
             "training_file",
             "validation_file",
             "test_file",
@@ -40,6 +47,7 @@
             "cutom_dataset_debug"
           ],
           "properties": {
+            "non_processed_dataset": { "type": "string" },
             "training_file": { "type": "string" },
             "validation_file": { "type": "string" },
             "test_file": { "type": "string" },
@@ -50,6 +58,7 @@
         "M15": {
           "type": "object",
           "required": [
+            "non_processed_dataset",
             "training_file",
             "validation_file",
             "test_file",
@@ -57,6 +66,7 @@
             "cutom_dataset_debug"
           ],
           "properties": {
+            "non_processed_dataset": { "type": "string" },
             "training_file": { "type": "string" },
             "validation_file": { "type": "string" },
             "test_file": { "type": "string" },
