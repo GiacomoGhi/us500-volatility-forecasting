@@ -31,7 +31,7 @@ class CustomDatasetCsv(Dataset):
     def __getitem__(self, index):
         windowed_x = self.data[index : index + self.window_size]
         windowed_y = self.data[index + self.window_size, 6]
-        windowed_y = windowed_y.reshape(1,1)
+
         return windowed_x, windowed_y
 
     def __analyze_file(self) -> bool:

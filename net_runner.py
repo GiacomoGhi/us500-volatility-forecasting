@@ -162,6 +162,7 @@ class NetRunner():
                 outputs = self.net(sequence)
 
                 # Calcolo della funzione di costo sulla base di predizioni e previsioni.
+                next_element = next_element.unsqueeze(1)
                 loss = self.criterion(outputs, next_element)
                 
                 # I gradienti vengono azzerati.
@@ -297,7 +298,8 @@ class NetRunner():
                 outputs = net(sequence)
 
                 # Calcola la loss.
-                loss = self.criterion(outputs, next_element[0, -1])
+                next_element = next_element.unsqueeze(1)
+                loss = self.criterion(outputs, next_element)
 
                 current_loss += loss.item()
                 current_loss_counter += 1
