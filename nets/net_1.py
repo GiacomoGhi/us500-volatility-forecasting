@@ -6,7 +6,7 @@ from pytorch_model_summary import summary
 
 class Net(nn.Module):
 
-    def __init__(self, input_size: int = 7, hidden_size: int = 144, num_layers: int = 5, out_size: int = 1) -> None:
+    def __init__(self, input_size: int = 7, hidden_size: int = 50, num_layers: int = 1, out_size: int = 1) -> None:
         
         super(Net, self).__init__()
         

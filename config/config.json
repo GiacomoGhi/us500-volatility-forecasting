@@ -32,8 +32,8 @@
     "show_preview": false
   },
   "hyper_parameters": {
-    "batch_size": 5,
-    "window_size": 10,
+    "batch_size": 1,
+    "window_size": 50,
     "epochs": 1000,
     "learning_rate": 0.01,
     "momentum": 0
@@ -50,8 +50,8 @@
   },
   "early_stop_parameters": {
     "loss_evaluation_epochs": 20,
-    "start_epoch": 100,
+    "start_epoch": 1,
     "patience": 3,
-    "improvement_rate": 1
+    "improvement_rate": 2
   }
 }
