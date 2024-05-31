@@ -1,6 +1,6 @@
 {
   "io": {
-    "time_frame": "M15",
+    "time_frame": "D1",
     "D1": {
       "non_processed_dataset": "./data/D1-USA500IDXUSD.csv",
       "training_file": "./processed-data/D1/train.csv",
@@ -33,9 +33,9 @@
   },
   "hyper_parameters": {
     "batch_size": 1,
-    "window_size": 40,
-    "epochs": 1,
-    "learning_rate": 0.01,
+    "window_size": 50,
+    "epochs": 1000,
+    "learning_rate": 0.015,
     "momentum": 0
   },
   "lstm_parameters": {
@@ -49,9 +49,9 @@
     "reload_last_model": false
   },
   "early_stop_parameters": {
-    "loss_evaluation_epochs": 1,
-    "start_epoch": 5,
+    "loss_evaluation_epochs": 25,
+    "start_epoch": 10,
     "patience": 3,
-    "improvement_rate": 5
+    "improvement_rate": 2
   }
 }
