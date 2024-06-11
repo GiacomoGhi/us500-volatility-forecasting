@@ -33,8 +33,8 @@
   },
   "hyper_parameters": {
     "batch_size": 1,
-    "window_size": 75,
-    "epochs": 1000,
+    "window_size": 50,
+    "epochs": 100,
     "learning_rate": 0.01,
     "momentum": 0
   },
@@ -44,14 +44,14 @@
   },
   "train_parameters": {
     "network_type": "net_1",
-    "step_monitor": 1,
+    "step_monitor": 500,
     "loss_target": 0.005,
     "reload_last_model": false
   },
   "early_stop_parameters": {
-    "loss_evaluation_epochs": 40,
+    "loss_evaluation_epochs": 5,
     "start_epoch": 1,
-    "patience": 3,
+    "patience": 4,
     "improvement_rate": 2
   }
 }

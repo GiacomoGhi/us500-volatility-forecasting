@@ -73,10 +73,11 @@ class NetRunner():
         
         # Ottimizzatore.
         cp.cyan(f'Created optimizer (lr: {self.cfg.hyper_parameters.learning_rate}, m: {self.cfg.hyper_parameters.momentum}).')
-        self.optimizer = optim.Adam(
-            self.net.parameters(), 
-            lr = self.cfg.hyper_parameters.learning_rate
-        )        
+        
+        # Adadelta non necessita dell'uso di un learning rate iniziale
+        self.optimizer = optim.Adadelta(
+            self.net.parameters()
+        )
 
     def train(self) -> None:
         
