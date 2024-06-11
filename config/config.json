@@ -27,9 +27,9 @@
     }
   },
   "parameters": {
-    "train": true,
+    "train": false,
     "test": true,
-    "show_preview": false
+    "show_preview": true
   },
   "hyper_parameters": {
     "batch_size": 1,
@@ -46,7 +46,7 @@
     "network_type": "net_1",
     "step_monitor": 500,
     "loss_target": 0.005,
-    "reload_last_model": false
+    "reload_last_model": true
   },
   "early_stop_parameters": {
     "loss_evaluation_epochs": 5,
