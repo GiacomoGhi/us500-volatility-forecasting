@@ -39,8 +39,8 @@
     "momentum": 0
   },
   "lstm_parameters": {
-    "hidden_size": 1,
-    "num_layers": 1
+    "hidden_size": 24,
+    "num_layers": 3
   },
   "train_parameters": {
     "network_type": "net_1",
@@ -51,7 +51,7 @@
   "early_stop_parameters": {
     "loss_evaluation_epochs": 5,
     "start_epoch": 1,
-    "patience": 4,
-    "improvement_rate": 2
+    "patience": 3,
+    "improvement_rate": 2.5
   }
 }
