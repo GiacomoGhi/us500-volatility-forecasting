@@ -334,6 +334,8 @@ class NetRunner():
         
         if self.cfg.train_parameters.network_type.lower() == 'net_1':
             from nets.net_1 import Net
+        elif self.cfg.train_parameters.network_type.lower() == 'net_2':
+            from nets.net_2 import Net
         else:
             print(f'Unknown net.')
             sys.exit(-1)
