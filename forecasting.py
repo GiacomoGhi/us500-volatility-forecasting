@@ -23,6 +23,7 @@ if __name__ == "__main__":
     else:
         data_path = cfg_obj.io.M15.non_processed_dataset
 
+    # preprocessore per calcolare la volatilità dai dati di open, high, low, close 
     ohlcDataPreprocessor(data_path, preprocessor_output_dir) 
 
     # Creo l'oggetto che mi permettera' di addestrare e testare il modello.
