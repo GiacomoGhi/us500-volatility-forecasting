@@ -27,7 +27,7 @@
     }
   },
   "parameters": {
-    "train": false,
+    "train": true,
     "test": true,
     "show_preview": true
   },
@@ -46,7 +46,7 @@
     "network_type": "net_1",
     "step_monitor": 500,
     "loss_target": 0.005,
-    "reload_last_model": true
+    "reload_last_model": false
   },
   "early_stop_parameters": {
     "loss_evaluation_epochs": 5,
