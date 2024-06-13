@@ -1,5 +1,6 @@
 from net_runner import NetRunner
 from config_helper import check_and_get_configuration
+from plot_last_column_distribution import plot_last_column_distribution
 from preprocessor import ohlcDataPreprocessor
 
 
@@ -24,7 +25,9 @@ if __name__ == "__main__":
         data_path = cfg_obj.io.M15.non_processed_dataset
 
     # preprocessore per calcolare la volatilità dai dati di open, high, low, close 
-    ohlcDataPreprocessor(data_path, preprocessor_output_dir) 
+    ohlcDataPreprocessor(data_path, preprocessor_output_dir)
+
+    plot_last_column_distribution(preprocessor_output_dir + "/train.csv")
 
     # Creo l'oggetto che mi permettera' di addestrare e testare il modello.
     runner = NetRunner(cfg_obj)
