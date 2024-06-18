@@ -23,7 +23,7 @@ Avremo quindi dataset distinti per i valori ohlc giornalieri, orari ed a 15 minu
 ## Preprocessing dei dati
 
 I dataset possiedono solo i valori o, h, l, c, data e ora.
-la classe ohlc si occupa di:
+la classe ohlcPreprocessor si occupa di:
 
 - Calcolare ed aggiungere la volatilità del mercato, in quel time frame, come valore percentuale.
 - Fare il casting dell'orario da stringa a valore intero.
