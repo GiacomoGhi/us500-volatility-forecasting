@@ -1,3 +1,4 @@
+import datetime
 import sys
 import time
 import math
@@ -15,6 +16,7 @@ from pathlib import Path
 from visual_util import ColoredPrint as cp
 from custom_dataset_csv import CustomDatasetCsv
 
+from torch.utils.tensorboard import SummaryWriter
 
 torch.manual_seed(42)
 np.random.seed(42)
@@ -35,7 +37,7 @@ class NetRunner():
         elif (self.cfg.io.time_frame == "H1"):
             self.data_files_dirs = self.cfg.io.H1
         else:
-            self.data_files_dirs = self.cfg.io.M15
+            self.data_files_dirs = self.cfg.io.M15            
         
         # Acquisisco la rete, in base al tipo richiesto.
         self.net = self.__get_net()
@@ -81,8 +83,30 @@ class NetRunner():
 
     def train(self) -> None:
         
-        cp.purple("Training...")
+        cp.purple("Training... ????")
+
+        # Inizializza un writer per loggare dati nella tensorboard.
+        exp_name = 'exp_' + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+        cp.blue("tesorboard_exp_folder: " + self.cfg.io.tesorboard_exp_folder)
+        cp.blue("exp_name: " + exp_name)
+        lab_path = Path(self.cfg.io.tesorboard_exp_folder)
+        exp_path = lab_path / exp_name
+        writer = SummaryWriter(exp_path)
         
+        
+        # Logga il modello nella tensorboard.
+        sample_tensor = torch.randn(
+            size=(
+                self.cfg.hyper_parameters.batch_size,
+                self.cfg.hyper_parameters.window_size,
+                7
+            ), 
+            dtype=torch.float32
+        )
+        writer.add_graph(self.net, sample_tensor)
+        writer.flush()
+        writer.close()
+
         # Conteggio degli step totali.
         global_step = 0
         

@@ -1,5 +1,6 @@
 {
   "io": {
+    "tesorboard_exp_folder": "./runs",
     "time_frame": "D1",
     "D1": {
       "non_processed_dataset": "./data/D1-USA500IDXUSD.csv",

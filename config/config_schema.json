@@ -11,8 +11,11 @@
   "properties": {
     "io": {
       "type": "object",
-      "required": ["time_frame", "D1", "H1", "M15"],
+      "required": ["tesorboard_exp_folder", "time_frame", "D1", "H1", "M15"],
       "properties": {
+        "tesorboard_exp_folder": {
+          "type": "string"
+        },
         "time_frame": {
           "type": "string",
           "enum": ["D1", "H1", "M15"]
