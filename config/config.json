@@ -54,5 +54,25 @@
     "start_epoch": 1,
     "patience": 3,
     "improvement_rate": 2.5
+  },
+  "auto_optimizer_parameters": {
+    "batch_size": {
+      "enabled": true,
+      "start": 1,
+      "end": 10,
+      "step": 2
+    },
+    "window_size": {
+      "enabled": true,
+      "start": 10,
+      "end": 100,
+      "step": 10
+    },
+    "epochs": {
+      "enabled": true,
+      "start": 5,
+      "end": 25,
+      "step": 5
+    }
   }
 }
