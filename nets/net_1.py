@@ -51,7 +51,7 @@ class Net(nn.Module):
         # - input_size e' nota.
         # - sequence_length la ottengo indirettamente (-1) dalle altre dimensioni.        
         
-        x = sequence.view(len(sequence), -1, self.input_size)
+        x = sequence.view(sequence.shape[0], -1, self.input_size)
         x, _ = self.lstm(x)
         x = self.linear(x[:, -1, :])
         return x

@@ -1,7 +1,7 @@
 {
   "io": {
     "tesorboard_exp_folder": "./runs",
-    "time_frame": "D1",
+    "time_frame": "H1",
     "D1": {
       "non_processed_dataset": "./data/D1-USA500IDXUSD.csv",
       "training_file": "./processed-data/D1/train.csv",
@@ -30,12 +30,12 @@
   "parameters": {
     "train": true,
     "test": true,
-    "show_preview": true
+    "show_preview": false
   },
   "hyper_parameters": {
     "batch_size": 1,
-    "window_size": 50,
-    "epochs": 100,
+    "window_size": 100,
+    "epochs": 5,
     "learning_rate": 0.01,
     "momentum": 0
   },
@@ -45,7 +45,7 @@
   },
   "train_parameters": {
     "network_type": "net_1",
-    "step_monitor": 500,
+    "step_monitor": 250,
     "loss_target": 0.005,
     "reload_last_model": false
   },

@@ -72,10 +72,7 @@ class NetRunner():
         # Funzione di costo.
         cp.cyan(f'Created loss function.')
         self.criterion = nn.MSELoss()
-        
-        # Ottimizzatore.
-        cp.cyan(f'Created optimizer (lr: {self.cfg.hyper_parameters.learning_rate}, m: {self.cfg.hyper_parameters.momentum}).')
-        
+                
         # Adadelta non necessita dell'uso di un learning rate iniziale
         self.optimizer = optim.Adadelta(
             self.net.parameters()
@@ -83,7 +80,7 @@ class NetRunner():
 
     def train(self) -> None:
         
-        cp.purple("Training... ????")
+        cp.purple("Training...")
 
         # Inizializza un writer per loggare dati nella tensorboard.
         exp_name = 'exp_' + datetime.datetime.now().strftime("%Y%m%d%H%M%S")
@@ -104,8 +101,6 @@ class NetRunner():
             dtype=torch.float32
         )
         writer.add_graph(self.net, sample_tensor)
-        writer.flush()
-        writer.close()
 
         # Conteggio degli step totali.
         global_step = 0
@@ -207,8 +202,13 @@ class NetRunner():
                 if (i + 1) % train_step_monitor == 0:
                     tr_run_losses_y.append(monitor_loss / train_step_monitor)
                     tr_run_losses_x.append(global_step)
+                    
                     print(f'global_step: {global_step:5d} - [ep: {epoch + 1:3d}, step: {i + 1:5d}] loss: {loss.item():.6f} - running_loss: {(monitor_loss / train_step_monitor):.6f}')
+                    
                     monitor_loss = 0.0
+
+                    # Logga parametri nella tensorboard
+                    writer.add_scalar('train/loss', loss.item(), i)
                 
                 tr_losses_y.append(loss.item())
                 tr_losses_x.append(global_step)
@@ -279,6 +279,22 @@ class NetRunner():
         
         self.test(self.va_b1_loader, use_current_net=True, preview=True)
         cp.blue('...of validation data.')
+
+        # Logga i risultati di addestramento
+        writer.add_hparams(
+            {
+                'num_epochs' : self.cfg.hyper_parameters.epochs, 
+                'batch_size': self.cfg.hyper_parameters.batch_size, 
+                'window_size': self.cfg.hyper_parameters.window_size, 
+                'momentum': self.cfg.hyper_parameters.momentum,
+            }, 
+            {
+                'hparams/best_loss' : loss.item()
+            }
+        )
+        
+        writer.flush()
+        writer.close()
     
     def test(self, loader: torch.utils.data.DataLoader = None, use_current_net: bool = False, preview : bool = False, print_loss: bool = False):
 
