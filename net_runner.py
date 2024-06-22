@@ -94,8 +94,8 @@ class NetRunner():
         # Logga il modello nella tensorboard.
         sample_tensor = torch.randn(
             size=(
-                self.cfg.hyper_parameters.batch_size,
-                self.cfg.hyper_parameters.window_size,
+                self.cfg.hyper_parameters.batch_size.value,
+                self.cfg.hyper_parameters.window_size.value,
                 7
             ), 
             dtype=torch.float32
@@ -105,7 +105,7 @@ class NetRunner():
         # Conteggio degli step totali.
         global_step = 0
         
-        epochs = self.cfg.hyper_parameters.epochs
+        epochs = self.cfg.hyper_parameters.epochs.value
         cp.cyan(f'Training loop epochs: {epochs}')
 
         # Salvo in una variabile in modo da mostrare una sola volta.
@@ -283,9 +283,9 @@ class NetRunner():
         # Logga i risultati di addestramento
         writer.add_hparams(
             {
-                'num_epochs' : self.cfg.hyper_parameters.epochs, 
-                'batch_size': self.cfg.hyper_parameters.batch_size, 
-                'window_size': self.cfg.hyper_parameters.window_size, 
+                'num_epochs' : self.cfg.hyper_parameters.epochs.value, 
+                'batch_size': self.cfg.hyper_parameters.batch_size.value, 
+                'window_size': self.cfg.hyper_parameters.window_size.value, 
                 'momentum': self.cfg.hyper_parameters.momentum,
             }, 
             {
@@ -388,22 +388,22 @@ class NetRunner():
     
         cp.cyan(f'Analyzing training dataset: {self.data_files_dirs.training_file}')
         tr_dataset = CustomDatasetCsv(self.data_files_dirs.training_file, 
-                                      self.cfg.hyper_parameters.window_size, 
+                                      self.cfg.hyper_parameters.window_size.value, 
                                       debug=self.data_files_dirs.cutom_dataset_debug)
         
         cp.cyan(f'Analyzing validation dataset: {self.data_files_dirs.validation_file}')
         va_dataset = CustomDatasetCsv(self.data_files_dirs.validation_file, 
-                                      self.cfg.hyper_parameters.window_size, 
+                                      self.cfg.hyper_parameters.window_size.value, 
                                       debug=self.data_files_dirs.cutom_dataset_debug)
         
         cp.cyan(f'Analyzing test dataset: {self.data_files_dirs.test_file}')
         te_dataset = CustomDatasetCsv(self.data_files_dirs.test_file, 
-                                      self.cfg.hyper_parameters.window_size, 
+                                      self.cfg.hyper_parameters.window_size.value, 
                                       debug=self.data_files_dirs.cutom_dataset_debug)
 
         # Creo poi il dataloader che prende i dati di addestramento a batch:
         self.tr_loader = torch.utils.data.DataLoader(tr_dataset, 
-                                                     batch_size=self.cfg.hyper_parameters.batch_size, 
+                                                     batch_size=self.cfg.hyper_parameters.batch_size.value, 
                                                      shuffle=False)
         
         # E i dataloader che prendono i dati, un solo elemnto per volta: usati per il test/visualizzazione.

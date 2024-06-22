@@ -33,9 +33,27 @@
     "show_preview": false
   },
   "hyper_parameters": {
-    "batch_size": 1,
-    "window_size": 100,
-    "epochs": 5,
+    "batch_size": {
+      "value": 1,
+      "optimize": true,
+      "start": 1,
+      "end": 3,
+      "step": 1
+    },
+    "window_size": {
+      "value": 10,
+      "optimize": true,
+      "start": 1,
+      "end": 3,
+      "step": 1
+    },
+    "epochs": {
+      "value": 5,
+      "optimize": false,
+      "start": 5,
+      "end": 25,
+      "step": 5
+    },
     "learning_rate": 0.01,
     "momentum": 0
   },
@@ -54,25 +72,5 @@
     "start_epoch": 1,
     "patience": 3,
     "improvement_rate": 2.5
-  },
-  "auto_optimizer_parameters": {
-    "batch_size": {
-      "enabled": true,
-      "start": 1,
-      "end": 10,
-      "step": 2
-    },
-    "window_size": {
-      "enabled": true,
-      "start": 10,
-      "end": 100,
-      "step": 10
-    },
-    "epochs": {
-      "enabled": true,
-      "start": 5,
-      "end": 25,
-      "step": 5
-    }
   }
 }

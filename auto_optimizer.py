@@ -1,112 +1,59 @@
-from numpy import copy
+from types import SimpleNamespace
+import copy
 
-class AutoOptimizer:
-  def __init__(self, cfg_object) -> None:
-    self.cfb = cfg_object
-    self.configurations = []
-    self.configContainer = []
-    self.itemsCount = 0
+from config_helper import check_and_get_configuration
 
-    if (cfg_object.auto_optimizer_parameters.batch_size.enabled):
-      self._addValueToOptimize(1)
 
-    if (cfg_object.auto_optimizer_parameters.window_size.enabled):
-      self._addValueToOptimize(2) 
+def __dict_to_simplenamespace(d):
+    if isinstance(d, dict):
+        for k, v in d.items():
+            d[k] = __dict_to_simplenamespace(v)
+        return SimpleNamespace(**d)
+    elif isinstance(d, list):
+        return [__dict_to_simplenamespace(i) for i in d]
+    else:
+        return d
 
-    if (cfg_object.auto_optimizer_parameters.epochs.enabled):
-      self._addValueToOptimize(3)
-
-  
-  def _addValueToOptimize(self, itemId: int):
-    if (itemId == 1):
-      self.configContainer.inser(copy.copy(self.cfb.auto_optimizer_parameters.batch_size))
+def generate_configs(config):
+    config = __dict_to_simplenamespace(cfg_obj)
     
-    elif (itemId == 2):
-      self.configContainer.inser(copy.copy(self.cfb.auto_optimizer_parameters.window_size))
+    hyper_params = config.hyper_parameters
     
-    elif (itemId == 3):
-      self.configContainer.inser(copy.copy(self.cfb.auto_optimizer_parameters.epochs))
+    params_to_optimize = {k: v for k, v in vars(hyper_params).items() if isinstance(v, SimpleNamespace) and v.optimize}
 
+    # Generate ranges for each parameter that needs to be optimized
+    param_ranges = {k: range(v.start, v.end + 1, v.step) for k, v in params_to_optimize.items()}
+
+    # Generate all combinations of hyperparameters
+    def generate_combinations(params):
+        if not params:
+            yield {}
+            return
+        param, values = params.popitem()
+        for value in values:
+            for combination in generate_combinations(params.copy()):
+                combination[param] = value
+                yield combination
+
+    combinations = list(generate_combinations(param_ranges.copy()))
+
+    # Create a new config for each combination
+    config_list = []
+    for combination in combinations:
+        new_config = copy.deepcopy(config)
+        for param, value in combination.items():
+            setattr(new_config.hyper_parameters, param, SimpleNamespace(**{**vars(getattr(new_config.hyper_parameters, param)), "value": value}))
+        config_list.append(new_config)
+
+    return config_list
+
+
+
+if __name__ == '__main__':    
+  cfg_obj = check_and_get_configuration('./config/config.json', './config/config_schema.json')
   
-  def _getPossibleConfigurations(self):
-
-
-    if len(self.configContainer) == 1:
-      item = self.configContainer[0]
-      for i in range(item.start, item.end, item.step):
-        #item.hyper_parameters.batch_size = i
-        #add value to config and schema, also then adjust net
-        self.configurations.insert(newConfig)
-      
-    elif len(self.configContainer) == 2:
-      
-    elif len(self.configContainer) == 3:
-
-
-def getListOfPossibleConfiguration(self, cfg_object: object) -> None:
-  hParams = cfg_object.auto_optimizer_parameters
-
-  configurations = []
-
-  if (hParams.batch_size.enabled and hParams.window_size.enabled and hParams.epochs.enabled):
-      b = hParams.batch_size
-      
-      w = hParams.window_size
-      
-      e = hParams.epochs
-      
-      for i in range(b.start, b.end, b.step):
-        for j in range(w.start, w.end, w.step):
-          for k in range(e.start, e.end, e.step):
-            newConfig = copy.copy(cfg_object)
-
-            newConfig.hyper_parameters.batch_size = i
-            newConfig.hyper_parameters.window_size = j
-            newConfig.hyper_parameters.epochs = k
-
-            configurations.insert(newConfig)
+  configs = generate_configs(cfg_obj)
   
-  
-  elif (hParams.batch_size.enabled and hParams.window_size.enabled):
-      b = hParams.batch_size
-      
-      w = hParams.window_size
-      
-      for i in range(b.start, b.end, b.step):
-        for j in range(w.start, w.end, w.step):
-          newConfig = copy.copy(cfg_object)
-
-          newConfig.hyper_parameters.batch_size = i
-          newConfig.hyper_parameters.window_size = j
-
-          configurations.insert(newConfig)
-  
-  
-  elif (hParams.batch_size.enabled and hParams.window_size.enabled):
-      b = hParams.batch_size
-      
-      w = hParams.window_size
-      
-      for i in range(b.start, b.end, b.step):
-        for j in range(w.start, w.end, w.step):
-          newConfig = copy.copy(cfg_object)
-
-          newConfig.hyper_parameters.batch_size = i
-          newConfig.hyper_parameters.window_size = j
-
-          configurations.insert(newConfig)
-  
-  
-  elif (hParams.batch_size.enabled):
-      b = hParams.batch_size
-      
-      for i in range(b.start, b.end, b.step):
-        newConfig = copy.copy(cfg_object)
-
-        newConfig.hyper_parameters.batch_size = i
-
-        configurations.insert(newConfig)
-
-  else: 
-    newConfig = copy.copy(cfg_object)
-    configurations.insert(newConfig)
+  # Print or use the generated configurations
+  for i, conf in enumerate(configs):
+      print(f"Config {i + 1}:\n", conf)

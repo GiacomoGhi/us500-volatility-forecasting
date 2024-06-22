@@ -99,19 +99,37 @@
       ],
       "properties": {
         "batch_size": {
-          "type": "number",
-          "minimum": 1,
-          "maximum": 1024
+          "type": "object",
+          "required": ["value", "optimize", "start", "end", "step"],
+          "properties": {
+            "value": { "type": "number", "minimum": 1, "maximum": 1024 },
+            "optimize": { "type": "boolean" },
+            "start": { "type": "number", "minimum": 1, "maximum": 1024 },
+            "end": { "type": "number", "minimum": 1, "maximum": 1024 },
+            "step": { "type": "number", "minimum": 1, "maximum": 1024 }
+          }
         },
         "window_size": {
-          "type": "number",
-          "minimum": 1,
-          "maximum": 1024
+          "type": "object",
+          "required": ["value", "optimize", "start", "end", "step"],
+          "properties": {
+            "value": { "type": "number", "minimum": 1, "maximum": 1024 },
+            "optimize": { "type": "boolean" },
+            "start": { "type": "number", "minimum": 1, "maximum": 1024 },
+            "end": { "type": "number", "minimum": 1, "maximum": 1024 },
+            "step": { "type": "number", "minimum": 1, "maximum": 1024 }
+          }
         },
         "epochs": {
-          "type": "number",
-          "minimum": 1,
-          "maximum": 10000
+          "type": "object",
+          "required": ["value", "optimize", "start", "end", "step"],
+          "properties": {
+            "value": { "type": "number", "minimum": 1, "maximum": 10000 },
+            "optimize": { "type": "boolean" },
+            "start": { "type": "number", "minimum": 1, "maximum": 10000 },
+            "end": { "type": "number", "minimum": 1, "maximum": 10000 },
+            "step": { "type": "number", "minimum": 1, "maximum": 10000 }
+          }
         },
         "learning_rate": {
           "type": "number",
@@ -192,78 +210,6 @@
           "type": "number",
           "minimum": 0,
           "maximum": 100
-        }
-      }
-    },
-    "auto_optimizer_parameters": {
-      "type": "object",
-      "required": ["batch_size", "window_size", "epochs"],
-      "properties": {
-        "batch_size": {
-          "type": "object",
-          "required": ["enabled", "start", "end", "step"],
-          "properties": {
-            "enabled": { "type": "boolean" },
-            "start": {
-              "type": "number",
-              "minimum": 1,
-              "maximum": 1024
-            },
-            "end": {
-              "type": "number",
-              "minimum": 1,
-              "maximum": 1024
-            },
-            "step": {
-              "type": "number",
-              "minimum": 1,
-              "maximum": 1024
-            }
-          }
-        },
-        "window_size": {
-          "type": "object",
-          "required": ["enabled", "start", "end", "step"],
-          "properties": {
-            "enabled": { "type": "boolean" },
-            "start": {
-              "type": "number",
-              "minimum": 1,
-              "maximum": 1024
-            },
-            "end": {
-              "type": "number",
-              "minimum": 1,
-              "maximum": 1024
-            },
-            "step": {
-              "type": "number",
-              "minimum": 1,
-              "maximum": 1024
-            }
-          }
-        },
-        "epochs": {
-          "type": "object",
-          "required": ["enabled", "start", "end", "step"],
-          "properties": {
-            "enabled": { "type": "boolean" },
-            "start": {
-              "type": "number",
-              "minimum": 1,
-              "maximum": 10000
-            },
-            "end": {
-              "type": "number",
-              "minimum": 1,
-              "maximum": 10000
-            },
-            "step": {
-              "type": "number",
-              "minimum": 1,
-              "maximum": 10000
-            }
-          }
         }
       }
     }
