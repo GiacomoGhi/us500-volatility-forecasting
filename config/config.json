@@ -37,19 +37,19 @@
       "value": 1,
       "optimize": true,
       "start": 1,
-      "end": 3,
-      "step": 1
+      "end": 10,
+      "step": 2
     },
     "window_size": {
       "value": 10,
       "optimize": true,
-      "start": 1,
-      "end": 3,
-      "step": 1
+      "start": 10,
+      "end": 50,
+      "step": 10
     },
     "epochs": {
       "value": 5,
-      "optimize": false,
+      "optimize": true,
       "start": 5,
       "end": 25,
       "step": 5
