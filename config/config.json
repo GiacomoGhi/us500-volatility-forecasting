@@ -1,7 +1,8 @@
 {
   "io": {
+    "use_auto_optimizer": true,
     "tesorboard_exp_folder": "./runs",
-    "time_frame": "H1",
+    "time_frame": "D1",
     "D1": {
       "non_processed_dataset": "./data/D1-USA500IDXUSD.csv",
       "training_file": "./processed-data/D1/train.csv",
@@ -42,7 +43,7 @@
     },
     "window_size": {
       "value": 10,
-      "optimize": true,
+      "optimize": false,
       "start": 10,
       "end": 50,
       "step": 10

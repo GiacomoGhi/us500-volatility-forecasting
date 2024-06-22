@@ -11,8 +11,16 @@
   "properties": {
     "io": {
       "type": "object",
-      "required": ["tesorboard_exp_folder", "time_frame", "D1", "H1", "M15"],
+      "required": [
+        "tesorboard_exp_folder",
+        "time_frame",
+        "D1",
+        "H1",
+        "M15",
+        "use_auto_optimizer"
+      ],
       "properties": {
+        "use_auto_optimizer": { "type": "boolean" },
         "tesorboard_exp_folder": {
           "type": "string"
         },

@@ -348,7 +348,7 @@ class NetRunner():
                 real.append(next_element[0, -1].item())
                 pred.append(outputs.item())
         
-        if preview:
+        if preview and not self.cfg.io.use_auto_optimizer:
             x = np.linspace(0, len(real)-1, len(real))            
             _, (ax1, ax2, ax3) = plt.subplots(3, 1)
             ax1.plot(x, real)
