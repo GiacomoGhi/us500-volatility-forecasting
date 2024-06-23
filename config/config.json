@@ -55,8 +55,6 @@
       "end": 25,
       "step": 5
     },
-    "learning_rate": 0.01,
-    "momentum": 0,
     "hidden_size": {
       "value": 24,
       "optimize": true,

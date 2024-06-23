@@ -96,8 +96,6 @@
         "batch_size",
         "window_size",
         "epochs",
-        "learning_rate",
-        "momentum",
         "hidden_size",
         "num_layers"
       ],
@@ -135,12 +133,6 @@
             "step": { "type": "number", "minimum": 1, "maximum": 10000 }
           }
         },
-        "learning_rate": {
-          "type": "number",
-          "minimum": 0.000001,
-          "maximum": 100
-        },
-        "momentum": { "type": "number", "minimum": 0, "maximum": 100 },
         "hidden_size": {
           "type": "object",
           "required": ["value", "optimize", "start", "end", "step"],
