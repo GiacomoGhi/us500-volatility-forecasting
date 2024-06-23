@@ -1,12 +1,22 @@
+import json
 from types import SimpleNamespace
 import copy
+
+from matplotlib import pyplot as plt
+import numpy as np
 from config_helper import check_and_get_configuration
 from net_runner import NetRunner
 from visual_util import ColoredPrint as cp
 
 class AutoOptimizer:
     def __init__(self, cfg_object: object) -> None:
-        self.configurations = self.__generate_configs(cfg_object)
+        self.configurations = self._generate_configs(cfg_object)
+        
+        self.best_exp_config = None
+        self.best_exp_real = None
+        self.best_exp_pred = None
+        self.best_exp_loss = 99999
+        
         
     def run_optimizations(self):
         # Iterate over each configuration and perform training and testing
@@ -23,26 +33,64 @@ class AutoOptimizer:
             # Perform testing if requested
             if cfg_obj.parameters.test:
                 runner.test(preview=True, print_loss=True)
+                
+                if (runner.test_loss < self.best_exp_loss): 
+                    self.best_exp_loss = runner.test_loss 
+                    self.best_exp_pred = runner.test_pred 
+                    self.best_exp_real = runner.test_real
+                    self.best_exp_config = cfg_obj
+        
+        self._plot_best_experiment()
+        
+                    
+    def _plot_best_experiment(self):
+        if (self.best_exp_real == None or self.best_exp_pred == None):
+            cp.red("Best exp values are undefined")
+            return
+        
+        class CustomEncoder(json.JSONEncoder):
+            def default(self, obj):
+                if isinstance(obj, SimpleNamespace):
+                    return obj.__dict__
+                return json.JSONEncoder.default(self, obj)
+        
+        print(json.dumps(self.best_exp_config, indent=4, cls=CustomEncoder))
+        
+        real = self.best_exp_real
+        pred = self.best_exp_pred
+        
+        x = np.linspace(0, len(real)-1, len(real))            
+        _, (ax1, ax2, ax3) = plt.subplots(3, 1)
+        ax1.plot(x, real)
+        ax1.set_title('Real sequence')
+        ax2.plot(x, pred)
+        ax2.set_title('Predicted sequence')
+        ax3.plot(x, real, label='Real')
+        ax3.plot(x, pred, label='Predicted')
+        ax3.set_title('Combined sequences')
+        ax3.legend()
+        plt.tight_layout()
+        plt.show()
 
     # Function to recursively convert dictionaries and lists into SimpleNamespace objects
-    def __dict_to_simplenamespace(self, d):
+    def _dict_to_simplenamespace(self, d):
         if isinstance(d, dict):
             # Convert each key-value pair in the dictionary
             for k, v in d.items():
-                d[k] = self.__dict_to_simplenamespace(v)
+                d[k] = self._dict_to_simplenamespace(v)
             # Convert the dictionary itself into a SimpleNamespace
             return SimpleNamespace(**d)
         elif isinstance(d, list):
             # If the object is a list, convert each element in the list
-            return [self.__dict_to_simplenamespace(i) for i in d]
+            return [self._dict_to_simplenamespace(i) for i in d]
         else:
             # If the object is neither a dictionary nor a list, return it as is
             return d
 
     # Function to generate all combinations of hyperparameter configurations
-    def __generate_configs(self, cfg_obj):
+    def _generate_configs(self, cfg_obj):
         # Convert the input configuration object into SimpleNamespace format
-        config = self.__dict_to_simplenamespace(cfg_obj)
+        config = self._dict_to_simplenamespace(cfg_obj)
         
         # Extract the hypernet_parameters from the configuration
         hyper_params = config.net_parameters

@@ -77,7 +77,13 @@ class NetRunner():
         self.optimizer = optim.Adadelta(
             self.net.parameters()
         )
-
+        
+        # Proprietà che andranno a contenere i valori finali del test
+        self.test_real = None
+        self.test_pred = None
+        self.test_loss = None
+        
+        
     def train(self) -> None:
         
         cp.purple("Training...")
@@ -365,6 +371,10 @@ class NetRunner():
         
         if print_loss:
             cp.yellow(f'Test loss: {loss:.6f}')
+            
+        self.test_real = real
+        self.test_pred = pred
+        self.test_loss = loss
         
         return loss
         
