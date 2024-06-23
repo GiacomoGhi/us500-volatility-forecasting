@@ -1,4 +1,5 @@
 from auto_optimizer import AutoOptimizer
+from dataset_analyzer import DatasetAnalyzer
 from net_runner import NetRunner
 from config_helper import check_and_get_configuration
 from plot_last_column_distribution import plot_last_column_distribution
@@ -24,9 +25,14 @@ if __name__ == "__main__":
 
     # preprocessore per calcolare la volatilità dai dati di open, high, low, close 
     ohlcDataPreprocessor(data_path, preprocessor_output_dir)
-
-    plot_last_column_distribution(preprocessor_output_dir + "/train.csv")
     
+    # Analisi statistiche della volatilità di mercato 
+    analyzer = DatasetAnalyzer("./processed-data/", "train.csv")
+    
+    analyzer.plot_last_column_distribution()
+    analyzer.plot_average_volatility_by_day_of_week()
+    analyzer.plot_average_volatility_by_hour()
+
     if cfg_obj.io.use_auto_optimizer:    
         autoOptimizer = AutoOptimizer(cfg_obj)
         
