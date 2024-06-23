@@ -32,10 +32,12 @@ if __name__ == "__main__":
     analyzer.plot_last_column_distribution()
     analyzer.plot_average_volatility_by_day_of_week()
     analyzer.plot_average_volatility_by_hour()
-
+    
+    # Se l'opzione di utilizzare l'ottimizzatore automatico è abilitata
     if cfg_obj.io.use_auto_optimizer:    
         autoOptimizer = AutoOptimizer(cfg_obj)
         
+        # Esegue le ottimizzazioni automatiche
         autoOptimizer.run_optimizations()
     
     else:
