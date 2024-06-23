@@ -34,12 +34,14 @@ class AutoOptimizer:
             if cfg_obj.parameters.test:
                 runner.test(preview=True, print_loss=True)
                 
+                # Save data from exp with min loss
                 if (runner.test_loss < self.best_exp_loss): 
                     self.best_exp_loss = runner.test_loss 
                     self.best_exp_pred = runner.test_pred 
                     self.best_exp_real = runner.test_real
                     self.best_exp_config = cfg_obj
         
+        # Prints best experiment config file values and plot recap chart
         self._plot_best_experiment()
         
                     
@@ -54,6 +56,8 @@ class AutoOptimizer:
                     return obj.__dict__
                 return json.JSONEncoder.default(self, obj)
         
+        cp.green("\nBest loss experiment config obj values:")
+        
         print(json.dumps(self.best_exp_config, indent=4, cls=CustomEncoder))
         
         real = self.best_exp_real
@@ -61,6 +65,9 @@ class AutoOptimizer:
         
         x = np.linspace(0, len(real)-1, len(real))            
         _, (ax1, ax2, ax3) = plt.subplots(3, 1)
+        
+        plt.suptitle("Best Experiment Result", fontsize=16)
+        
         ax1.plot(x, real)
         ax1.set_title('Real sequence')
         ax2.plot(x, pred)
@@ -69,6 +76,7 @@ class AutoOptimizer:
         ax3.plot(x, pred, label='Predicted')
         ax3.set_title('Combined sequences')
         ax3.legend()
+        
         plt.tight_layout()
         plt.show()
 
