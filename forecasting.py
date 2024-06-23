@@ -2,7 +2,6 @@ from auto_optimizer import AutoOptimizer
 from dataset_analyzer import DatasetAnalyzer
 from net_runner import NetRunner
 from config_helper import check_and_get_configuration
-from plot_last_column_distribution import plot_last_column_distribution
 from preprocessor import ohlcDataPreprocessor
 
 
