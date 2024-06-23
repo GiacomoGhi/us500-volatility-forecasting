@@ -73,7 +73,7 @@ if __name__ == '__main__':
     print(n)
 
     # Stampa i parametri addestrabili.
-    for name, param in n.named_parameters():
+    for name, param in n.named_net_parameters():
         if param.requires_grad:
             print(name, param.data)
 

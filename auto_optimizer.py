@@ -44,10 +44,10 @@ class AutoOptimizer:
         # Convert the input configuration object into SimpleNamespace format
         config = self.__dict_to_simplenamespace(cfg_obj)
         
-        # Extract the hyperparameters from the configuration
-        hyper_params = config.hyper_parameters
+        # Extract the hypernet_parameters from the configuration
+        hyper_params = config.net_parameters
         
-        # Identify the hyperparameters that need to be optimized
+        # Identify the hypernet_parameters that need to be optimized
         params_to_optimize = {k: v for k, v in vars(hyper_params).items() if isinstance(v, SimpleNamespace) and v.optimize}
 
         # Generate ranges for each hyperparameter that needs to be optimized
@@ -56,28 +56,28 @@ class AutoOptimizer:
         # Recursive function to generate all combinations of hyperparameter values
         def generate_combinations(params):
             if not params:
-                # Base case: if no more parameters, yield an empty dictionary
+                # Base case: if no more net_parameters, yield an empty dictionary
                 yield {}
                 return
             # Pop an item from the parameter dictionary
             param, values = params.popitem()
             for value in values:
-                # Recursively generate combinations for the remaining parameters
+                # Recursively generate combinations for the remaining net_parameters
                 for combination in generate_combinations(params.copy()):
                     combination[param] = value
                     yield combination
 
-        # Generate all possible combinations of hyperparameters
+        # Generate all possible combinations of hypernet_parameters
         combinations = list(generate_combinations(param_ranges.copy()))
 
-        # Create a new configuration object for each combination of hyperparameters
+        # Create a new configuration object for each combination of hypernet_parameters
         config_list = []
         for combination in combinations:
             # Deep copy the original configuration to create a new one
             new_config = copy.deepcopy(config)
             for param, value in combination.items():
                 # Update the hyperparameter values in the new configuration
-                setattr(new_config.hyper_parameters, param, SimpleNamespace(**{**vars(getattr(new_config.hyper_parameters, param)), "value": value}))
+                setattr(new_config.net_parameters, param, SimpleNamespace(**{**vars(getattr(new_config.net_parameters, param)), "value": value}))
             config_list.append(new_config)
 
         return config_list

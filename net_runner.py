@@ -94,8 +94,8 @@ class NetRunner():
         # Logga il modello nella tensorboard.
         sample_tensor = torch.randn(
             size=(
-                self.cfg.hyper_parameters.batch_size.value,
-                self.cfg.hyper_parameters.window_size.value,
+                self.cfg.net_parameters.batch_size.value,
+                self.cfg.net_parameters.window_size.value,
                 7
             ), 
             dtype=torch.float32
@@ -105,7 +105,7 @@ class NetRunner():
         # Conteggio degli step totali.
         global_step = 0
         
-        epochs = self.cfg.hyper_parameters.epochs.value
+        epochs = self.cfg.net_parameters.epochs.value
         cp.cyan(f'Training loop epochs: {epochs}')
 
         # Salvo in una variabile in modo da mostrare una sola volta.
@@ -118,10 +118,10 @@ class NetRunner():
         cp.cyan(f'Training monitor every {train_step_monitor} steps, preview: {show_preview}.')
         cp.cyan(f'Training will stop when reaching loss target ({loss_target}) for train and validation data.')
         
-        es_start_epoch = self.cfg.early_stop_parameters.start_epoch
-        es_loss_evaluation_epochs = self.cfg.early_stop_parameters.loss_evaluation_epochs
-        es_patience = self.cfg.early_stop_parameters.patience
-        es_improvement_rate = self.cfg.early_stop_parameters.improvement_rate
+        es_start_epoch = self.cfg.early_stop_net_parameters.start_epoch
+        es_loss_evaluation_epochs = self.cfg.early_stop_net_parameters.loss_evaluation_epochs
+        es_patience = self.cfg.early_stop_net_parameters.patience
+        es_improvement_rate = self.cfg.early_stop_net_parameters.improvement_rate
         
         cp.cyan(f'Early stop check will start at epoch {es_start_epoch}.')
         cp.cyan(f'Validation loss evaluated every {es_loss_evaluation_epochs} epochs.')
@@ -283,10 +283,10 @@ class NetRunner():
         # Logga i risultati di addestramento
         writer.add_hparams(
             {
-                'num_epochs' : self.cfg.hyper_parameters.epochs.value, 
-                'batch_size': self.cfg.hyper_parameters.batch_size.value, 
-                'window_size': self.cfg.hyper_parameters.window_size.value, 
-                'momentum': self.cfg.hyper_parameters.momentum,
+                'num_epochs' : self.cfg.net_parameters.epochs.value, 
+                'batch_size': self.cfg.net_parameters.batch_size.value, 
+                'window_size': self.cfg.net_parameters.window_size.value, 
+                'momentum': self.cfg.net_parameters.momentum,
             }, 
             {
                 'hparams/best_loss' : loss.item()
@@ -380,30 +380,30 @@ class NetRunner():
             print(f'Unknown net.')
             sys.exit(-1)
             
-        return Net(hidden_size=self.cfg.lstm_parameters.hidden_size,
-                   num_layers=self.cfg.lstm_parameters.num_layers)
+        return Net(hidden_size=self.cfg.net_parameters.hidden_size.value,
+                   num_layers=self.cfg.net_parameters.num_layers.value)
     
     # Carica i Dataset tramite Dataloader e scopre le classi del dataset.
     def __load_data(self) -> None:
     
         cp.cyan(f'Analyzing training dataset: {self.data_files_dirs.training_file}')
         tr_dataset = CustomDatasetCsv(self.data_files_dirs.training_file, 
-                                      self.cfg.hyper_parameters.window_size.value, 
+                                      self.cfg.net_parameters.window_size.value, 
                                       debug=self.data_files_dirs.cutom_dataset_debug)
         
         cp.cyan(f'Analyzing validation dataset: {self.data_files_dirs.validation_file}')
         va_dataset = CustomDatasetCsv(self.data_files_dirs.validation_file, 
-                                      self.cfg.hyper_parameters.window_size.value, 
+                                      self.cfg.net_parameters.window_size.value, 
                                       debug=self.data_files_dirs.cutom_dataset_debug)
         
         cp.cyan(f'Analyzing test dataset: {self.data_files_dirs.test_file}')
         te_dataset = CustomDatasetCsv(self.data_files_dirs.test_file, 
-                                      self.cfg.hyper_parameters.window_size.value, 
+                                      self.cfg.net_parameters.window_size.value, 
                                       debug=self.data_files_dirs.cutom_dataset_debug)
 
         # Creo poi il dataloader che prende i dati di addestramento a batch:
         self.tr_loader = torch.utils.data.DataLoader(tr_dataset, 
-                                                     batch_size=self.cfg.hyper_parameters.batch_size.value, 
+                                                     batch_size=self.cfg.net_parameters.batch_size.value, 
                                                      shuffle=False)
         
         # E i dataloader che prendono i dati, un solo elemnto per volta: usati per il test/visualizzazione.

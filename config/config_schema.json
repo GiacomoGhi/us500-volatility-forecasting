@@ -3,31 +3,25 @@
   "required": [
     "io",
     "parameters",
-    "hyper_parameters",
-    "lstm_parameters",
+    "net_parameters",
     "train_parameters",
-    "early_stop_parameters"
+    "early_stop_net_parameters"
   ],
   "properties": {
     "io": {
       "type": "object",
       "required": [
+        "use_auto_optimizer",
         "tesorboard_exp_folder",
         "time_frame",
         "D1",
         "H1",
-        "M15",
-        "use_auto_optimizer"
+        "M15"
       ],
       "properties": {
         "use_auto_optimizer": { "type": "boolean" },
-        "tesorboard_exp_folder": {
-          "type": "string"
-        },
-        "time_frame": {
-          "type": "string",
-          "enum": ["D1", "H1", "M15"]
-        },
+        "tesorboard_exp_folder": { "type": "string" },
+        "time_frame": { "type": "string", "enum": ["D1", "H1", "M15"] },
         "D1": {
           "type": "object",
           "required": [
@@ -96,14 +90,16 @@
         "show_preview": { "type": "boolean" }
       }
     },
-    "hyper_parameters": {
+    "net_parameters": {
       "type": "object",
       "required": [
         "batch_size",
         "window_size",
         "epochs",
         "learning_rate",
-        "momentum"
+        "momentum",
+        "hidden_size",
+        "num_layers"
       ],
       "properties": {
         "batch_size": {
@@ -144,26 +140,28 @@
           "minimum": 0.000001,
           "maximum": 100
         },
-        "momentum": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
-        }
-      }
-    },
-    "lstm_parameters": {
-      "type": "object",
-      "required": ["hidden_size", "num_layers"],
-      "properties": {
+        "momentum": { "type": "number", "minimum": 0, "maximum": 100 },
         "hidden_size": {
-          "type": "number",
-          "minimum": 1,
-          "maximum": 10000
+          "type": "object",
+          "required": ["value", "optimize", "start", "end", "step"],
+          "properties": {
+            "value": { "type": "number", "minimum": 16, "maximum": 32 },
+            "optimize": { "type": "boolean" },
+            "start": { "type": "number", "minimum": 16, "maximum": 32 },
+            "end": { "type": "number", "minimum": 16, "maximum": 32 },
+            "step": { "type": "number", "minimum": 4, "maximum": 4 }
+          }
         },
         "num_layers": {
-          "type": "number",
-          "minimum": 1,
-          "maximum": 10000
+          "type": "object",
+          "required": ["value", "optimize", "start", "end", "step"],
+          "properties": {
+            "value": { "type": "number", "minimum": 1, "maximum": 5 },
+            "optimize": { "type": "boolean" },
+            "start": { "type": "number", "minimum": 1, "maximum": 5 },
+            "end": { "type": "number", "minimum": 1, "maximum": 5 },
+            "step": { "type": "number", "minimum": 1, "maximum": 1 }
+          }
         }
       }
     },
@@ -177,20 +175,12 @@
       ],
       "properties": {
         "network_type": { "type": "string" },
-        "step_monitor": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 10000
-        },
-        "loss_target": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 10000
-        },
+        "step_monitor": { "type": "number", "minimum": 0, "maximum": 10000 },
+        "loss_target": { "type": "number", "minimum": 0, "maximum": 10000 },
         "reload_last_model": { "type": "boolean" }
       }
     },
-    "early_stop_parameters": {
+    "early_stop_net_parameters": {
       "type": "object",
       "required": [
         "loss_evaluation_epochs",
@@ -204,21 +194,9 @@
           "minimum": 0,
           "maximum": 10000
         },
-        "start_epoch": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 10000
-        },
-        "patience": {
-          "type": "number",
-          "minimum": 1,
-          "maximum": 10000
-        },
-        "improvement_rate": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 100
-        }
+        "start_epoch": { "type": "number", "minimum": 0, "maximum": 10000 },
+        "patience": { "type": "number", "minimum": 1, "maximum": 10000 },
+        "improvement_rate": { "type": "number", "minimum": 0, "maximum": 100 }
       }
     }
   }

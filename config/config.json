@@ -33,10 +33,10 @@
     "test": true,
     "show_preview": false
   },
-  "hyper_parameters": {
+  "net_parameters": {
     "batch_size": {
       "value": 1,
-      "optimize": true,
+      "optimize": false,
       "start": 1,
       "end": 10,
       "step": 2
@@ -50,17 +50,27 @@
     },
     "epochs": {
       "value": 5,
-      "optimize": true,
+      "optimize": false,
       "start": 5,
       "end": 25,
       "step": 5
     },
     "learning_rate": 0.01,
-    "momentum": 0
-  },
-  "lstm_parameters": {
-    "hidden_size": 24,
-    "num_layers": 3
+    "momentum": 0,
+    "hidden_size": {
+      "value": 24,
+      "optimize": true,
+      "start": 16,
+      "end": 32,
+      "step": 4
+    },
+    "num_layers": {
+      "value": 3,
+      "optimize": false,
+      "start": 1,
+      "end": 5,
+      "step": 1
+    }
   },
   "train_parameters": {
     "network_type": "net_1",
@@ -68,7 +78,7 @@
     "loss_target": 0.005,
     "reload_last_model": false
   },
-  "early_stop_parameters": {
+  "early_stop_net_parameters": {
     "loss_evaluation_epochs": 5,
     "start_epoch": 1,
     "patience": 3,
