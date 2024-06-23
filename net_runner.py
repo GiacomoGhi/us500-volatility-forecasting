@@ -292,6 +292,9 @@ class NetRunner():
                 'num_epochs' : self.cfg.net_parameters.epochs.value, 
                 'batch_size': self.cfg.net_parameters.batch_size.value, 
                 'window_size': self.cfg.net_parameters.window_size.value,
+                'hidden_size': self.cfg.net_parameters.hidden_size.value,
+                'num_layers': self.cfg.net_parameters.num_layers.value,
+                'cell_type': self.cfg.net_parameters.cell_type.value,
             }, 
             {
                 'hparams/best_loss' : loss.item()
