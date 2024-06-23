@@ -1,5 +1,17 @@
 # US500 Volatility forecasting ()
 
+## Start-up
+
+Direttamente dopo la copia del repository è possibile lanciare forecasting.py.
+Lo script andrà a:
+
+1. Fare il preprocessing del dataset D1.
+2. Mostrare una piccola analisi statistica generando il grafico della distribuzione dei valori di volatilità
+3. La visualizzazione della preview dell'ultimo modello caricato come 'best model'
+4. Iniziare l'allenamento di un nuovo modello.
+
+N.B.: L'allenamento della rete richide circa 5 min con un processore Intel i7 - 11th gen
+
 ## Contesto
 
 Uno dei principali interessi di un investitore è la gestione del rischio.
