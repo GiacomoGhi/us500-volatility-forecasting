@@ -97,7 +97,8 @@
         "window_size",
         "epochs",
         "hidden_size",
-        "num_layers"
+        "num_layers",
+        "cell_type"
       ],
       "properties": {
         "batch_size": {
@@ -126,22 +127,22 @@
           "type": "object",
           "required": ["value", "optimize", "start", "end", "step"],
           "properties": {
-            "value": { "type": "number", "minimum": 1, "maximum": 10000 },
+            "value": { "type": "number", "minimum": 1, "maximum": 1024 },
             "optimize": { "type": "boolean" },
-            "start": { "type": "number", "minimum": 1, "maximum": 10000 },
-            "end": { "type": "number", "minimum": 1, "maximum": 10000 },
-            "step": { "type": "number", "minimum": 1, "maximum": 10000 }
+            "start": { "type": "number", "minimum": 1, "maximum": 1024 },
+            "end": { "type": "number", "minimum": 1, "maximum": 1024 },
+            "step": { "type": "number", "minimum": 1, "maximum": 1024 }
           }
         },
         "hidden_size": {
           "type": "object",
           "required": ["value", "optimize", "start", "end", "step"],
           "properties": {
-            "value": { "type": "number", "minimum": 16, "maximum": 32 },
+            "value": { "type": "number", "minimum": 1, "maximum": 1024 },
             "optimize": { "type": "boolean" },
-            "start": { "type": "number", "minimum": 16, "maximum": 32 },
-            "end": { "type": "number", "minimum": 16, "maximum": 32 },
-            "step": { "type": "number", "minimum": 4, "maximum": 4 }
+            "start": { "type": "number", "minimum": 1, "maximum": 1024 },
+            "end": { "type": "number", "minimum": 1, "maximum": 1024 },
+            "step": { "type": "number", "minimum": 1, "maximum": 1024 }
           }
         },
         "num_layers": {
@@ -152,6 +153,17 @@
             "optimize": { "type": "boolean" },
             "start": { "type": "number", "minimum": 1, "maximum": 5 },
             "end": { "type": "number", "minimum": 1, "maximum": 5 },
+            "step": { "type": "number", "minimum": 1, "maximum": 1 }
+          }
+        },
+        "cell_type": {
+          "type": "object",
+          "required": ["value", "optimize", "start", "end", "step"],
+          "properties": {
+            "value": { "type": "number", "minimum": 1, "maximum": 3 },
+            "optimize": { "type": "boolean" },
+            "start": { "type": "number", "minimum": 1, "maximum": 3 },
+            "end": { "type": "number", "minimum": 1, "maximum": 3 },
             "step": { "type": "number", "minimum": 1, "maximum": 1 }
           }
         }

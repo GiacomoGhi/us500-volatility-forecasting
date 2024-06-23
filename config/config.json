@@ -57,7 +57,7 @@
     },
     "hidden_size": {
       "value": 24,
-      "optimize": true,
+      "optimize": false,
       "start": 16,
       "end": 32,
       "step": 4
@@ -67,6 +67,13 @@
       "optimize": false,
       "start": 1,
       "end": 5,
+      "step": 1
+    },
+    "cell_type": {
+      "value": 1,
+      "optimize": true,
+      "start": 1,
+      "end": 3,
       "step": 1
     }
   },

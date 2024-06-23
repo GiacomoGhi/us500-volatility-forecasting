@@ -6,7 +6,7 @@ from pytorch_model_summary import summary
 
 class Net(nn.Module):
 
-    def __init__(self, input_size: int = 7, hidden_size: int = 50, num_layers: int = 1, out_size: int = 1) -> None:
+    def __init__(self, input_size: int = 7, hidden_size: int = 50, num_layers: int = 1, out_size: int = 1, cell_type = 1) -> None:
         
         super(Net, self).__init__()
         
@@ -21,12 +21,29 @@ class Net(nn.Module):
         self.num_layers = num_layers
         self.out_size = out_size
 
-        # Aggiungo strato costituito di celle LSTM.
-        self.lstm = nn.LSTM(input_size = self.input_size, 
-                            hidden_size = self.hidden_size, 
-                            num_layers = self.num_layers,
-                            dropout=0.2, 
-                            bidirectional=True)
+        # Aggiungo strato costituito di celle LSTM || GRU || LSTM,
+        # dipende dal cell_type specificato in config.json.
+        if (cell_type == 2):
+            self.lstm = nn.RNN(input_size = self.input_size, 
+                                hidden_size = self.hidden_size, 
+                                num_layers = self.num_layers,
+                                dropout=0.2, 
+                                bidirectional=True)
+        
+        elif (cell_type == 3):
+            self.lstm = nn.GRU(input_size = self.input_size, 
+                                hidden_size = self.hidden_size, 
+                                num_layers = self.num_layers,
+                                bias=True,
+                                dropout=0.2, 
+                                bidirectional=True)
+        else:
+            self.lstm = nn.LSTM(input_size = self.input_size, 
+                                hidden_size = self.hidden_size, 
+                                num_layers = self.num_layers,
+                                dropout=0.2, 
+                                bidirectional=True)
+        
 
         # Aggiungo uno strato fully-connected.
         self.linear = nn.Linear(self.hidden_size * 2, 

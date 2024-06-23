@@ -380,7 +380,8 @@ class NetRunner():
             sys.exit(-1)
             
         return Net(hidden_size=self.cfg.net_parameters.hidden_size.value,
-                   num_layers=self.cfg.net_parameters.num_layers.value)
+                   num_layers=self.cfg.net_parameters.num_layers.value,
+                   cell_type=self.cfg.net_parameters.cell_type.value)
     
     # Carica i Dataset tramite Dataloader e scopre le classi del dataset.
     def __load_data(self) -> None:
