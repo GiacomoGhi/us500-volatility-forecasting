@@ -5,12 +5,9 @@
 Direttamente dopo la copia del repository è possibile lanciare forecasting.py.
 Lo script andrà a:
 
-1. Fare il preprocessing del dataset D1.
+1. Fare il preprocessing di dataset.
 2. Mostrare tre tipi di analisi statistiche dei dataset presenti in ./processed-data
-3. La visualizzazione della preview dell'ultimo modello caricato come 'best model'
-4. Iniziare l'allenamento di un nuovo modello.
-
-N.B.: L'allenamento della rete richide circa 5 min con un processore Intel i7 - 11th gen
+3. Iniziare l'allenamento di un nuovo modello.
 
 ## Contesto
 
@@ -27,8 +24,8 @@ Avremo quindi dataset distinti per i valori ohlc giornalieri, orari ed a 15 minu
 
 ## Architettura
 
-1. Tipologia rete: LSTM
-2. Funzione di attivatione: Lineare (net_1);
+1. Tipologia rete: RNN (modificalbile tramite file di configurazione)
+2. Funzione di attivatione: Lineare;
 3. Funzione di loss: MSE
 4. Ottimizzatore: Adadelta
 
@@ -45,7 +42,7 @@ la classe ohlcPreprocessor si occupa di:
 
 Lo script forecasting.py sfrutta la classe DatasetAnalyzer ( from dataset_analyzer.py ) per visualizzare tre tipi di analisi statistiche dei dataset utilizzati:
 
-1. plot_last_column_distribution() vistualizza la distribuzione dei valori di volatilità
+1. plot_last_column_distribution() visualizza la distribuzione dei valori di volatilità
 2. plot_average_volatility_by_day_of_week() visualizza l'istogramma dei valori di volatilità media raggrupata per giorni della settimana
 3. plot_average_volatility_by_hour() visualizza l'istogramma dei valori di volatilità media raggrupata per le ore del giorno
 
@@ -55,7 +52,7 @@ attorno alle 14-15 (CET) del giorno. Orario che coincide con l'apertura della bo
 ## AutoOptimizer
 
 La classe AutoOptimizer automatizza l'ottimizzazione dei parametri di un modello.
-Carica una configurazione iniziale e genera automaticamente tutte le combinazioni possibili dei perparametri specificati per l'ottimizzazione.
+Carica una configurazione iniziale e genera automaticamente tutte le combinazioni possibili dei parametri specificati per l'ottimizzazione.
 Essa esegue poi training e testing per ogni combinazione e salva la configurazione con la minor perdita di test.
 Infine, la classe stampa a console la configurazione migliore e crea un grafico che confronta i dati previsti con quelli reali.
 
@@ -67,10 +64,10 @@ Per utilizzare l'AutoOptimizer è necessario:
 
 ## Esperimenti effettuati e Risultati
 
-Sono stati eseguiti 4 ottimizzazioni sfruttando la classe AutoOptimizer:
+Sono state eseguite 4 ottimizzazioni sfruttando la classe AutoOptimizer:
 
 1. Nel primo esperimento è stata fatta l'ottimizzazione per i parametri relativi all'architettura della rete.
-   Sfruttando l'AutoOptimizer sono stati eseguiti 75 esperimenti con 75 diverse combinazioni riguardo il tipo di cella, il valore dei hidden_size e num_layers.
+   Sono stati eseguiti 75 esperimenti con 75 diverse combinazioni riguardo il tipo di cella, il valore di hidden_size e num_layers.
    Tra le possibili combinazioni, la loss minore è stata generata usando i seguenti valori: hidden_size.value = 16; num_layers.value = 1, cell_type.value = 2
    (il valore 2 di cell_type corrisponde all'utilizzo di celle RNN)
 
@@ -85,5 +82,9 @@ Sono stati eseguiti 4 ottimizzazioni sfruttando la classe AutoOptimizer:
 
 ## Considerazioni finali
 
-Dalla tensorboard è possibile visualizzare l'andamento della loss. A differenza degli andamenti visti a lezione, aventi una forma di una parabola discendente,
-quelli prodotti da questa rete hanno un'andamento apparentemente casuale. Osservando il grafico prodotto a fine addestramento però
+Dalla tensorboard è possibile visualizzare l'andamento delle funzioni di loss dei vari esperimenti.
+A differenza degli andamenti visti a lezione, aventi una forma di parabola discendente,
+quelli prodotti da questa rete hanno un'andamento apparentemente casuale.
+
+Il confronto tra valori reali e generati dalla rete trova i secondi ricadere al centro dei primi, come se la rete per minimizzare la loss si sia limitata a tracciare
+usa sorta di retta di regressione.
