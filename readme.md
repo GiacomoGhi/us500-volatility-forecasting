@@ -84,7 +84,7 @@ Sono state eseguite 4 ottimizzazioni sfruttando la classe AutoOptimizer:
 
 Dalla tensorboard è possibile visualizzare l'andamento delle funzioni di loss dei vari esperimenti.
 A differenza degli andamenti visti a lezione, aventi una forma di parabola discendente,
-quelli prodotti da questa rete hanno un'andamento apparentemente casuale.
+quelli prodotti da questa rete hanno un andamento apparentemente casuale.
 
 Il confronto tra valori reali e generati dalla rete trova i secondi ricadere al centro dei primi, come se la rete per minimizzare la loss si sia limitata a tracciare
 usa sorta di retta di regressione.
