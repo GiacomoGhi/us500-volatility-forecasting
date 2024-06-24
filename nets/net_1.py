@@ -21,13 +21,15 @@ class Net(nn.Module):
         self.num_layers = num_layers
         self.out_size = out_size
 
+        dropout = 0.2 if num_layers > 1 else 0.0
+
         # Aggiungo strato costituito di celle LSTM || GRU || LSTM,
         # dipende dal cell_type specificato in config.json.
         if (cell_type == 2):
             self.lstm = nn.RNN(input_size = self.input_size, 
                                 hidden_size = self.hidden_size, 
                                 num_layers = self.num_layers,
-                                dropout=0.2, 
+                                dropout = dropout, 
                                 bidirectional=True)
         
         elif (cell_type == 3):
@@ -35,13 +37,13 @@ class Net(nn.Module):
                                 hidden_size = self.hidden_size, 
                                 num_layers = self.num_layers,
                                 bias=True,
-                                dropout=0.2, 
+                                dropout = dropout, 
                                 bidirectional=True)
         else:
             self.lstm = nn.LSTM(input_size = self.input_size, 
                                 hidden_size = self.hidden_size, 
                                 num_layers = self.num_layers,
-                                dropout=0.2, 
+                                dropout = dropout, 
                                 bidirectional=True)
         
 
