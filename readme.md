@@ -53,7 +53,7 @@ attorno alle 14-15 (CET) del giorno. Orario che coincide con l'apertura della bo
 
 La classe AutoOptimizer automatizza l'ottimizzazione dei parametri di un modello.
 Carica una configurazione iniziale e genera automaticamente tutte le combinazioni possibili dei parametri specificati per l'ottimizzazione.
-Essa esegue poi training e testing per ogni combinazione e salva la configurazione con la minor perdita di test.
+Essa esegue poi training e testing per ogni combinazione e salva la configurazione con la minor loss di test.
 Infine, la classe stampa a console la configurazione migliore e crea un grafico che confronta i dati previsti con quelli reali.
 
 Per utilizzare l'AutoOptimizer è necessario:
@@ -74,10 +74,10 @@ Sono state eseguite 4 ottimizzazioni sfruttando la classe AutoOptimizer:
 2. Il secondo esperimento è stato incentrato nella ricerca del miglior valore di batch_size. Provando con valori da 1 a 50, con step di 5.
    Il valore di batch_size che ha generato la loss minore è stato uguale a 31
 
-3. Il secondo esperimento è stato incentrato nella ricerca del miglior valore di window_size. Provando con valori da 10 a 100, con step di 10.
+3. Il terzo esperimento è stato incentrato nella ricerca del miglior valore di window_size. Provando con valori da 10 a 100, con step di 10.
    Il valore di window_size che ha generato la loss minore è stato uguale a 20
 
-4. Il secondo esperimento è stato incentrato nella ricerca del miglior valore di epochs. Provando con valori da 1 a 25, con step di 5.
+4. Il quarto esperimento è stato incentrato nella ricerca del miglior valore di epochs. Provando con valori da 1 a 25, con step di 5.
    Il valore di epochs che ha generato la loss minore è stato uguale a 21
 
 ## Considerazioni finali
