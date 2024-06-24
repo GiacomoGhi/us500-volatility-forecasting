@@ -10,20 +10,10 @@ if __name__ == "__main__":
     # Carica il file di configurazione, lo valido e ne creo un oggetto a partire dal json.
     cfg_obj = check_and_get_configuration('./config/config.json', './config/config_schema.json')
 
-    
-    # Dal file di configurazione seleziono il files per il data set e per l'output
-    data_path = ""
-    preprocessor_output_dir = "./processed-data/" + cfg_obj.io.time_frame
-
-    if (cfg_obj.io.time_frame == "D1"): 
-        data_path = cfg_obj.io.D1.non_processed_dataset
-    elif (cfg_obj.io.time_frame == "H1"):
-        data_path = cfg_obj.io.H1.non_processed_dataset
-    else:
-        data_path = cfg_obj.io.M15.non_processed_dataset
-
     # preprocessore per calcolare la volatilità dai dati di open, high, low, close 
-    ohlcDataPreprocessor(data_path, preprocessor_output_dir)
+    ohlcDataPreprocessor(cfg_obj.io.D1.non_processed_dataset, "./processed-data/D1")
+    ohlcDataPreprocessor(cfg_obj.io.H1.non_processed_dataset, "./processed-data/H1")
+    ohlcDataPreprocessor(cfg_obj.io.M15.non_processed_dataset, "./processed-data/M15")
     
     # Analisi statistiche della volatilità di mercato 
     analyzer = DatasetAnalyzer("./processed-data/", "train.csv")
