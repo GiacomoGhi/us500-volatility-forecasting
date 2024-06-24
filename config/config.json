@@ -1,6 +1,6 @@
 {
   "io": {
-    "use_auto_optimizer": true,
+    "use_auto_optimizer": false,
     "tesorboard_exp_folder": "./runs",
     "time_frame": "D1",
     "D1": {
@@ -35,50 +35,50 @@
   },
   "net_parameters": {
     "batch_size": {
-      "value": 1,
+      "value": 31,
       "optimize": false,
       "start": 1,
-      "end": 10,
-      "step": 2
+      "end": 50,
+      "step": 5
     },
     "window_size": {
-      "value": 10,
+      "value": 20,
       "optimize": false,
       "start": 10,
-      "end": 50,
+      "end": 100,
       "step": 10
     },
     "epochs": {
-      "value": 5,
+      "value": 21,
       "optimize": false,
-      "start": 5,
+      "start": 1,
       "end": 25,
       "step": 5
     },
     "hidden_size": {
-      "value": 24,
-      "optimize": true,
+      "value": 16,
+      "optimize": false,
       "start": 16,
       "end": 32,
       "step": 4
     },
     "num_layers": {
-      "value": 3,
-      "optimize": true,
+      "value": 1,
+      "optimize": false,
       "start": 1,
       "end": 5,
       "step": 1
     },
     "cell_type": {
-      "value": 1,
-      "optimize": true,
+      "value": 2,
+      "optimize": false,
       "start": 1,
       "end": 3,
       "step": 1
     }
   },
   "train_parameters": {
-    "step_monitor": 250,
+    "step_monitor": 10,
     "loss_target": 0.005,
     "reload_last_model": false
   },
