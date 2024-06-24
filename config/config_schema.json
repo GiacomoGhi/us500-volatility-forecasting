@@ -171,14 +171,8 @@
     },
     "train_parameters": {
       "type": "object",
-      "required": [
-        "network_type",
-        "step_monitor",
-        "loss_target",
-        "reload_last_model"
-      ],
+      "required": ["step_monitor", "loss_target", "reload_last_model"],
       "properties": {
-        "network_type": { "type": "string" },
         "step_monitor": { "type": "number", "minimum": 0, "maximum": 10000 },
         "loss_target": { "type": "number", "minimum": 0, "maximum": 10000 },
         "reload_last_model": { "type": "boolean" }

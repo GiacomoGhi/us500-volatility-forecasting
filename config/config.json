@@ -57,14 +57,14 @@
     },
     "hidden_size": {
       "value": 24,
-      "optimize": false,
+      "optimize": true,
       "start": 16,
       "end": 32,
       "step": 4
     },
     "num_layers": {
       "value": 3,
-      "optimize": false,
+      "optimize": true,
       "start": 1,
       "end": 5,
       "step": 1
@@ -73,12 +73,11 @@
       "value": 1,
       "optimize": true,
       "start": 1,
-      "end": 1,
+      "end": 3,
       "step": 1
     }
   },
   "train_parameters": {
-    "network_type": "net_1",
     "step_monitor": 250,
     "loss_target": 0.005,
     "reload_last_model": false

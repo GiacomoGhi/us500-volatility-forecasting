@@ -384,14 +384,8 @@ class NetRunner():
     # Ottiene un oggetto 'rete' del tipo richiesto.
     def __get_net(self):
         
-        if self.cfg.train_parameters.network_type.lower() == 'net_1':
-            from nets.net_1 import Net
-        elif self.cfg.train_parameters.network_type.lower() == 'net_2':
-            from nets.net_2 import Net
-        else:
-            print(f'Unknown net.')
-            sys.exit(-1)
-            
+        from nets.net_1 import Net
+        
         return Net(hidden_size=self.cfg.net_parameters.hidden_size.value,
                    num_layers=self.cfg.net_parameters.num_layers.value,
                    cell_type=self.cfg.net_parameters.cell_type.value)
